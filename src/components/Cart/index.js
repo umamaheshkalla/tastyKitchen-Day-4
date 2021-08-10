@@ -14,7 +14,7 @@ class Cart extends Component {
   }
 
   getItemName = async () => {
-    const restaurantId = Cookies.get('restaurantId')
+    const restaurantId = Cookies.get('restaurant_id')
     const jwtToken = Cookies.get('jwt_token')
     const url = `https://apis.ccbp.in/restaurants-list/${restaurantId}`
     const options = {
@@ -37,17 +37,17 @@ class Cart extends Component {
   }
 
   render() {
-    const itemId = Cookies.get('item_id')
-    const quantity = Cookies.get('quantity')
     const {foodItems} = this.state
     return (
-      <>
+      <div>
         <Header />
-        {foodItems.map(eachItem => (
-          <CartItems foodItems={eachItem} foodItemId={itemId} />
-        ))}
+        <div className="cart-page">
+          {foodItems.map(eachItem => (
+            <CartItems foodItems={eachItem} key={eachItem.id} />
+          ))}
+        </div>
         <FooterSection />
-      </>
+      </div>
     )
   }
 }

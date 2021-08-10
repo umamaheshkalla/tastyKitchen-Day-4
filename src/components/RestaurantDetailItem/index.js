@@ -1,18 +1,23 @@
 import {Component} from 'react'
 
-import {Link} from 'react-router-dom'
-
 import {IoMdStar} from 'react-icons/io'
+
+import Cookies from 'js-cookie'
 
 import Counter from '../Counter'
 
 import './index.css'
 
 class RestaurantDetailItem extends Component {
-  state = {onAddItem: true}
+  state = {onAddItem: true, restaurantInfoId: '', selectedFoodName: ''}
 
   addItem = () => {
-    this.setState({onAddItem: false})
+    const {restaurantDetailItem, restaurantId} = this.props
+    this.setState({
+      onAddItem: false,
+      restaurantInfoId: restaurantId,
+      selectedFoodName: restaurantDetailItem.name,
+    })
   }
 
   renderAddButton = () => (
@@ -22,31 +27,27 @@ class RestaurantDetailItem extends Component {
   )
 
   render() {
-    const {restaurantDetailItem, restaurantId} = this.props
+    const {restaurantDetailItem} = this.props
     const {imageUrl, cost, foodType, id, name, rating} = restaurantDetailItem
-    const {onAddItem} = this.state
+    const {onAddItem, selectedFoodName, restaurantInfoId} = this.state
+    Cookies.set('restaurant_id', restaurantInfoId, {expires: 30})
+    Cookies.set('food_item_name', selectedFoodName, {expires: 30})
 
     return (
-      <Link to={id}>
-        <div className="restaurantItems-block">
-          <img className="item-image" alt={id} src={imageUrl} />
-          <ul className="item-info">
-            <li className="item-name">
-              {name} <span className="food-type"> ({foodType})</span>
-            </li>
-            <li className="item-cost">Rs.{cost}.00</li>
-            <li className="item-rating">
-              <IoMdStar className="item-rating-icon" />
-              {rating}
-            </li>
-            {onAddItem ? (
-              this.renderAddButton()
-            ) : (
-              <Counter addItemId={id} restaurantId={restaurantId} />
-            )}
-          </ul>
-        </div>
-      </Link>
+      <div className="restaurantItems-block">
+        <img className="item-image" alt={id} src={imageUrl} />
+        <ul className="item-info">
+          <li className="item-name">
+            {name} <span className="food-type"> ({foodType})</span>
+          </li>
+          <li className="item-cost">Rs.{cost}.00</li>
+          <li className="item-rating">
+            <IoMdStar className="item-rating-icon" />
+            {rating}
+          </li>
+          {onAddItem ? this.renderAddButton() : <Counter />}
+        </ul>
+      </div>
     )
   }
 }

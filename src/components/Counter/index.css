@@ -4,9 +4,12 @@
 }
 .counter-block-quantity {
   display: flex;
+  align-items: center;
 }
 .counter-button {
-  margin-right: 10px;
+  margin-right: px;
+  width: 22px;
+  height: 18px;
   background-color: transparent;
   border: 1px solid;
   cursor: pointer;

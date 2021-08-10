@@ -42,6 +42,7 @@ class RestaurantDetails extends Component {
       rating: data.rating,
       reviewsCount: data.reviews_count,
     }
+
     const updatedRestaurantItems = data.food_items.map(eachItem => ({
       cost: eachItem.cost,
       foodType: eachItem.food_type,
@@ -50,7 +51,6 @@ class RestaurantDetails extends Component {
       name: eachItem.name,
       rating: eachItem.rating,
     }))
-    console.log(data)
     this.setState({
       restaurantDetails: updatedRestaurantData,
       restaurantItems: updatedRestaurantItems,

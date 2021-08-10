@@ -1,5 +1,4 @@
 import {Component} from 'react'
-import Cookies from 'js-cookie'
 import {withRouter} from 'react-router-dom'
 
 import './index.css'
@@ -21,14 +20,8 @@ class Counter extends Component {
   onAddToCart = () => {
     const {quantity} = this.state
     if (quantity > 0) {
-      const {addItemId, restaurantId} = this.props
-      console.log(addItemId)
-      const itemInfo = addItemId
       const {history} = this.props
-      Cookies.set('item_id', itemInfo, {expires: 30})
-      Cookies.set('quantity', quantity, {expires: 30})
-      Cookies.set('restaurantId', restaurantId, {expires: 30})
-      history.push('/cart')
+      history.replace('/Cart')
     }
   }
 
